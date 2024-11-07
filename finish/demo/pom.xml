@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- duplicate these variable because demo has no parent -->
+    <bom.artifact.id>bill-of-materials</bom.artifact.id> 
+    <esa.artifact.id>liberty-feature</esa.artifact.id>
+  </properties>
+
+    <groupId>com.ibm.example.user.feature</groupId>
+    <artifactId>demo-application</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>demo-application</name>
+
+    <!-- Notice the absense of a parent decleration. -->
+
+    <!-- This is the dependency on the BOM which will cause Maven to install the open liberty feature when requested -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.ibm.example.user.feature</groupId>
+                <!-- This is ${bom.artifact.id} -->
+                <artifactId>bill-of-materials</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Normal dependencies on packages imported into the application code -->
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>10.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+            <!-- We import a qualifier from the integration code -->
+            <dependency>
+                <groupId>com.ibm.example.user.feature</groupId>
+                <!-- This is ${esa.artifact.id} -->
+                <artifactId>liberty-feature</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>provided</scope>
+            </dependency>
+        <!-- The integrated pre-existing libraries are referenced as normal -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.14.0</version>
+            <!-- Note the use of scope here, since at runtime what's needed will be provided by a liberty feature. -->
+            <!-- Be especially careful not to put duplicate CDI beans in the application and the feature or you will get an ambigious resolution exception -->
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>open-liberty-integration</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.3.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>io.openliberty.tools</groupId>
+                    <artifactId>liberty-maven-plugin</artifactId>
+                    <version>3.9</version>
+                    <!-- Specify configuration, executions for liberty-maven-plugin -->
+                    <configuration>
+                        <serverName>test</serverName>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>io.openliberty.tools</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

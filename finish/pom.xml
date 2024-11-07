@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+    <bom.artifact.id>bill-of-materials</bom.artifact.id>
+    <esa.artifact.id>liberty-feature</esa.artifact.id>
+    <integration.artifact.id>integration-code</integration.artifact.id>
+    <pre.existing.library.package>org.apache.commons.lang3.concurrent</pre.existing.library.package>
+    <new.integration.code.private.package>com.ibm.example.cdi.internal</new.integration.code.private.package>
+    <new.integration.code.api.package>com.ibm.example.cdi.api</new.integration.code.api.package>
+    <feature.name>example-feature-1.0</feature.name>
+  </properties>
+
+  <groupId>com.ibm.example.user.feature</groupId>
+  <artifactId>root</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>bom</module>
+    <module>demo</module>
+    <module>esa</module>
+    <module>integration</module>
+  </modules>
+
+
+
+</project>

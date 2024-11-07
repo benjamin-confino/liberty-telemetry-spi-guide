@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ibm.example.user.feature</groupId>
+    <artifactId>${esa.artifact.id}</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>esa</packaging>
+
+  <parent>
+    <groupId>com.ibm.example.user.feature</groupId>
+    <artifactId>root</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <!-- These are the jars that will go into your liberty feature -->
+  <dependencies>
+    <dependency>
+      <groupId>com.ibm.example.user.feature</groupId>
+      <artifactId>${integration.artifact.id}</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.14.0</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.aries</groupId>
+        <artifactId>esa-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <generateManifest>true</generateManifest>
+          <archiveContent>all</archiveContent>
+          <instructions>
+            <Subsystem-SymbolicName>
+                example.user.feature.esa.machine.name;visibility:=public
+            </Subsystem-SymbolicName>
+            <Subsystem-Vendor>IBM</Subsystem-Vendor>
+            <IBM-Feature-Version>2</IBM-Feature-Version>
+            <IBM-ShortName>${feature.name}</IBM-ShortName>
+            <Subsystem-Type>osgi.subsystem.feature</Subsystem-Type>
+            <Subsystem-Version>1.0.0</Subsystem-Version>
+            <IBM-API-Package>
+                ${pre.existing.library.package};version="3.14.0",
+                ${new.integration.code.api.package};version="1.0.0"
+            </IBM-API-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
