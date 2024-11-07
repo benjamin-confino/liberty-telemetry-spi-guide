@@ -10,9 +10,7 @@
     <bom.artifact.id>bill-of-materials</bom.artifact.id>
     <esa.artifact.id>liberty-feature</esa.artifact.id>
     <integration.artifact.id>integration-code</integration.artifact.id>
-    <pre.existing.library.package>org.apache.commons.lang3.concurrent</pre.existing.library.package>
-    <new.integration.code.private.package>com.ibm.example.cdi.internal</new.integration.code.private.package>
-    <new.integration.code.api.package>com.ibm.example.cdi.api</new.integration.code.api.package>
+    <new.integration.code.package>io.openliberty.telemetry.user.feature</new.integration.code.package>
     <feature.name>example-feature-1.0</feature.name>
   </properties>
 

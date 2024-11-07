@@ -5,6 +5,8 @@
     <featureManager>
         <feature>jakartaee-10.0</feature>
         <feature>cdi-4.0</feature>
+        <feature>mpTelemetry-2.0</feature>
+        <feature>servlet-6.0</feature>
         <acceptLicense>true</acceptLicense>
         <feature>usr:example-feature-1.0</feature> <!-- This should be usr:<IBM-ShortName> from esa/pom.xml -->
     </featureManager>
@@ -37,7 +39,9 @@
     <applicationManager autoExpand="true"/>
 
     <!-- Configures the application on a specified context root -->
-    <webApplication contextRoot="/open-liberty-integration" location="open-liberty-integration.war" />
+    <webApplication contextRoot="/open-liberty-integration" location="open-liberty-integration.war" >
+        <classloader apiTypeVisibility="+third-party"/>
+    </webApplication>
 
     <!-- Default SSL configuration enables trust for default certificates from the Java runtime -->
     <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
